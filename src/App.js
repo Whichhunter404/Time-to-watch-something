@@ -1,5 +1,7 @@
 import React, {Component} from 'react';
-import Card from './components/card/Card.js';
+import My_Card from './components/card/Card.js';
+import Header from './components/header/Header';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
 class App extends Component{
@@ -9,7 +11,8 @@ class App extends Component{
     render(){
         return (
             <div className="App">
-                <Card nothing={'Somethimg meaninful'}/>
+                <Header/>
+                <My_Card nothing={'Somethimg meaninful'}/>
             </div>
         );
     }
