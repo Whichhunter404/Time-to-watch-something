@@ -1,17 +1,16 @@
 import React from 'react';
 import { Card,ListGroup,ListGroupItem } from 'react-bootstrap';
-import American_Dragon from '../images/american_Dragon.jpg';
 
 
-const My_Card = ({nothing}) =>{
+const My_Card = ({dat}) =>{
+    const {title,img_path,description,first_episode} = dat;
     return(
-        <Card style={{ width: '18rem' }}>
-            <Card.Img variant="top" src={American_Dragon} />
+        <Card style={{ width: '50rem', margin: "auto" }}>
+            <Card.Img variant="top" src={img_path} />
             <Card.Body>
-                <Card.Title>Card Title</Card.Title>
+                <Card.Title>{title}</Card.Title>
                 <Card.Text>
-                    Some quick example text to build on the card title and make up the bulk of
-                    the card's content.
+                    {description}
                 </Card.Text>
             </Card.Body>
             <ListGroup className="list-group-flush">
@@ -21,7 +20,7 @@ const My_Card = ({nothing}) =>{
             </ListGroup>
             <Card.Body>
                 <Card.Link href="#">Card Link</Card.Link>
-                <Card.Link href="#">Another Link</Card.Link>
+                <Card.Link href={first_episode}>Another Link</Card.Link>
             </Card.Body>
         </Card>
     );
