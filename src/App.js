@@ -1,14 +1,17 @@
 import React, {Component} from 'react';
-import My_Card from './components/card/Card.js';
-import Header from './components/header/Header';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Container,Row,Col,Button } from 'react-bootstrap';
 import './App.css';
 import Mongodb from "./Mongodb";
 import axios from "axios";
-import divWithClassName from "react-bootstrap/esm/divWithClassName";
-import AddMovieFrom from "./components/form/AddMovieForm";
-import AlertMessages from "./components/alert_messages/AlertMessages";
+import Home from './Pages/Home';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link,
+    useRouteMatch,
+    useParams
+} from "react-router-dom";
 
 class App extends Component{
     state = {
@@ -121,34 +124,30 @@ class App extends Component{
         const data = this.state.data;
         const error_alert = this.state.error_alert;
         return (
-            <div className="App">
-                <Container>
-                    <Row>
-                        <Col>
-                            <AlertMessages closeTheErrorMessage={this.closeTheErrorMessage} HasErrorMessage={error_alert}/>
-                            <Header/>
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col>
-                            <AddMovieFrom putdatafunc={this.putDataToDB} titleChange={this.titleChange} sub_titleChange={this.sub_titleChange} descriptionChange={this.description_Change} img_pathChange={this.img_path_Change} first_episodeChange={this.first_episode_Change} />
-                        </Col>
-                    </Row>
-                    <Row>
-                        <Col>
-                                {data.length <= 0
-                                    ? 'Semmilyen cím nincs még bent!'
-                                    : data.map((dat) => (
-                                        <div>
-                                            <My_Card dat={dat} />
-                                            <Button variant="danger" onClick={() => this.deleteFromDB(dat.id)}>Törlés</Button>
-                                            <Button variant="outline-warning" onClick={() => this.deleteFromDB(dat.id)}>Szerkeztés</Button>
-                                        </div>
-                                    ))}
-                        </Col>
-                    </Row>
-                </Container>
-            </div>
+            <Router>
+                <div>
+                    <ul>
+                        <li>
+                            <Link to="/">Home</Link>
+                        </li>
+                        <li>
+                            <Link to="/about">About</Link>
+                        </li>
+                        <li>
+                            <Link to="/topics">Topics</Link>
+                        </li>
+                    </ul>
+
+                    <Switch>
+                        <Route path="/" exact>
+                            <Home closeTheErrorMessage={this.closeTheErrorMessage} HasErrorMessage={error_alert} putdatafunc={this.putDataToDB} titleChange={this.titleChange} sub_titleChange={this.sub_titleChange} descriptionChange={this.description_Change} img_pathChange={this.img_path_Change} first_episodeChange={this.first_episode_Change} data={data} deleteFromDB={this.deleteFromDB}/>
+                        </Route>
+                        <Route path="/">
+                            <h1>Anyát akarom</h1>
+                        </Route>
+                    </Switch>
+                </div>
+            </Router>
         );
     }
 }
