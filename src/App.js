@@ -28,7 +28,7 @@ class App extends Component{
         objectToUpdate: null,
         error_alert: false
     };
-    Server_Url = 'http://localhost:3001';
+    Server_Url = 'http://time-to-watch-something-api.herokuapp.com';
 
     // when component mounts, first thing it does is fetch all existing data in our db
     // then we incorporate a polling logic so that we can easily see if our db has
