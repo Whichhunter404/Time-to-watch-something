@@ -5,7 +5,7 @@ import { Card,ListGroup,ListGroupItem } from 'react-bootstrap';
 const My_Card = ({dat}) =>{
     const {title,img_path,description,first_episode} = dat;
     return(
-        <Card style={{ width: '50rem', margin: "auto" }}>
+        <Card style={{ width: '50rem', margin: "auto", backgroundColor : "#444", color:"white" }}>
             <Card.Img variant="top" src={img_path} />
             <Card.Body>
                 <Card.Title>{title}</Card.Title>

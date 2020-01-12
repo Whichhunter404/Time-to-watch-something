@@ -1,3 +1,7 @@
+body{
+  background-color: #111 !important;
+  color: #eee;
+}
 .App {
   text-align: center;
 }
@@ -22,7 +26,16 @@
 .App-link {
   color: #61dafb;
 }
-
+.input-group-prepend{
+  background-color: #444;
+}
+.list-group-item{
+  background-color: #303030;
+  border: 1px solid #444;
+}
+.list-group-item:hover{
+  background-color: #565656;
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);

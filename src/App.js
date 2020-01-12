@@ -8,20 +8,22 @@ import Mongodb from "./Mongodb";
 import axios from "axios";
 import divWithClassName from "react-bootstrap/esm/divWithClassName";
 import AddMovieFrom from "./components/form/AddMovieForm";
+import AlertMessages from "./components/alert_messages/AlertMessages";
 
 class App extends Component{
     state = {
         data: [],
         id: 0,
-        title: null,
-        sub_title: null,
-        img_path: null,
-        description: null,
-        first_episode_url: null,
+        title: '',
+        sub_title: '',
+        img_path: '',
+        description: '',
+        first_episode_url: '',
         intervalIsSet: false,
         idToDelete: null,
         idToUpdate: null,
         objectToUpdate: null,
+        error_alert: false
     };
 
     // when component mounts, first thing it does is fetch all existing data in our db
@@ -43,42 +45,34 @@ class App extends Component{
             this.setState({ intervalIsSet: null });
         }
     }
-
-    // just a note, here, in the front end, we use the id key of our data object
-    // in order to identify which we want to Update or delete.
-    // for our back end, we use the object id assigned by MongoDB to modify
-    // data base entries
-
-    // our first get method that uses our backend api to
-    // fetch data from our data base
+    closeTheErrorMessage = () =>{
+        this.setState({error_alert:false});
+    }
     getDataFromDb = () => {
         fetch('http://localhost:3001/api/getData')
             .then((data) => data.json())
             .then((res) => this.setState({ data: res.data }));
     };
-
-    // our put method that uses our backend api
-    // to create new query into our data base
     putDataToDB = () => {
-        const {title,sub_title,img_path,description,first_episode_url} = this.state;
         let currentIds = this.state.data.map((data) => data.id);
         let idToBeAdded = 0;
         while (currentIds.includes(idToBeAdded)) {
             ++idToBeAdded;
         }
-
-        axios.post('http://localhost:3001/api/putData', {
-            id: idToBeAdded,
-            title: title,
-            sub_title: sub_title,
-            img_path: img_path,
-            description : description,
-            first_episode_url: first_episode_url
-        });
+        if(this.state.title.length>0&&this.state.sub_title.length>0&&this.state.description.length>0&&this.state.img_path.length>0&&this.state.first_episode_url.length>0) {
+            axios.post('http://localhost:3001/api/putData', {
+                id: idToBeAdded,
+                title: this.state.title,
+                sub_title: this.state.sub_title,
+                img_path: this.state.description,
+                description: this.state.description,
+                first_episode_url: this.state.first_episode_url
+            });
+        }
+        else{
+            this.setState({error_alert: true});
+        }
     };
-
-    // our delete method that uses our backend api
-    // to remove existing database information
     deleteFromDB = (idTodelete) => {
         parseInt(idTodelete);
         let objIdToDelete = null;
@@ -94,9 +88,6 @@ class App extends Component{
             },
         });
     };
-
-    // our update method that uses our backend api
-    // to overwrite existing data base information
     updateDB = (idToUpdate, updateToApply) => {
         let objIdToUpdate = null;
         parseInt(idToUpdate);
@@ -111,22 +102,39 @@ class App extends Component{
             update: { message: updateToApply },
         });
     };
+    titleChange = (event) =>{
+      this.setState({title: event.target.value});
+    };
+    sub_titleChange = (event) =>{
+      this.setState({sub_title: event.target.value});
+    };
+    description_Change = (event) =>{
+      this.setState({description: event.target.value});
+    };
+    img_path_Change = (event) =>{
+      this.setState({img_path: event.target.value});
+    };
+    first_episode_Change = (event) =>{
+      this.setState({first_episode: event.target.value});
+    };
     render(){
         const data = this.state.data;
+        const error_alert = this.state.error_alert;
         return (
             <div className="App">
                 <Container>
                     <Row>
                         <Col>
+                            <AlertMessages closeTheErrorMessage={this.closeTheErrorMessage} HasErrorMessage={error_alert}/>
                             <Header/>
                         </Col>
                     </Row>
                     <Row>
                         <Col>
-                            <AddMovieFrom putdatafunc={this.putDataToDB()} state={this.state} />
+                            <AddMovieFrom putdatafunc={this.putDataToDB} titleChange={this.titleChange} sub_titleChange={this.sub_titleChange} descriptionChange={this.description_Change} img_pathChange={this.img_path_Change} first_episodeChange={this.first_episode_Change} />
                         </Col>
                     </Row>
-                    <row>
+                    <Row>
                         <Col>
                                 {data.length <= 0
                                     ? 'Semmilyen cím nincs még bent!'
@@ -138,7 +146,7 @@ class App extends Component{
                                         </div>
                                     ))}
                         </Col>
-                    </row>
+                    </Row>
                 </Container>
             </div>
         );
