@@ -28,6 +28,7 @@ class App extends Component{
         objectToUpdate: null,
         error_alert: false
     };
+    Server_Url = 'http://localhost:3001';
 
     // when component mounts, first thing it does is fetch all existing data in our db
     // then we incorporate a polling logic so that we can easily see if our db has
@@ -50,9 +51,9 @@ class App extends Component{
     }
     closeTheErrorMessage = () =>{
         this.setState({error_alert:false});
-    }
+    };
     getDataFromDb = () => {
-        fetch('http://localhost:3001/api/getData')
+        fetch(this.Server_Url+'/api/getData')
             .then((data) => data.json())
             .then((res) => this.setState({ data: res.data }));
     };
@@ -63,7 +64,7 @@ class App extends Component{
             ++idToBeAdded;
         }
         if(this.state.title.length>0&&this.state.sub_title.length>0&&this.state.description.length>0&&this.state.img_path.length>0&&this.state.first_episode_url.length>0) {
-            axios.post('http://localhost:3001/api/putData', {
+            axios.post(this.Server_Url+'/api/putData', {
                 id: idToBeAdded,
                 title: this.state.title,
                 sub_title: this.state.sub_title,
