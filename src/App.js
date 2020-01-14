@@ -28,7 +28,7 @@ class App extends Component{
         objectToUpdate: null,
         error_alert: false
     };
-    Server_Url = 'http://time-to-watch-something-api.herokuapp.com';
+    Server_Url = 'http://localhost:3001';
 
     // when component mounts, first thing it does is fetch all existing data in our db
     // then we incorporate a polling logic so that we can easily see if our db has
@@ -141,7 +141,7 @@ class App extends Component{
 
                     <Switch>
                         <Route path="/" exact>
-                            <Home closeTheErrorMessage={this.closeTheErrorMessage} HasErrorMessage={error_alert} putdatafunc={this.putDataToDB} titleChange={this.titleChange} sub_titleChange={this.sub_titleChange} descriptionChange={this.description_Change} img_pathChange={this.img_path_Change} first_episodeChange={this.first_episode_Change} data={data} deleteFromDB={this.deleteFromDB}/>
+                            <Home closeTheErrorMessage={this.closeTheErrorMessage} HasErrorMessage={error_alert} putDataToDB={this.putDataToDB} titleChange={this.titleChange} sub_titleChange={this.sub_titleChange} descriptionChange={this.description_Change} img_pathChange={this.img_path_Change} first_episodeChange={this.first_episode_Change} data={data} deleteFromDB={this.deleteFromDB}/>
                         </Route>
                         <Route path="/">
                             <h1>Anyát akarom</h1>
