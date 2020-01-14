@@ -61,7 +61,7 @@ const AddMovieFrom = ({putdatafunc,titleChange,sub_titleChange,descriptionChange
                     />
                 </InputGroup>
                 <Button
-                    onClick={() => putdatafunc()}
+                    onClick={putdatafunc}
                     variant="primary"
                     size="lg"
                     block
