@@ -5,19 +5,40 @@ import Header from '../components/header/Header';
 import AddMovieFrom from "../components/form/AddMovieForm";
 import AlertMessages from "../components/alert_messages/AlertMessages";
 
-const Home = ({closeTheErrorMessage,error_alert,putDataToDB,titleChange,sub_titleChange,description_Change,img_pathChange,first_episodeChange,data,deleteFromDB}) =>{
+const Home = ({
+                  closeTheErrorMessage,
+                  error_alert,
+                  closeTheSuccessMessage,
+                  success_alert,
+                  putDataToDB,
+                  titleChange,
+                  sub_titleChange,
+                  descriptionChange,
+                  img_pathChange,
+                  first_episodeChange,
+                  data,
+                  state,
+                  deleteFromDB}) =>{
     return (
         <div className="App">
             <Container>
                 <Row>
                     <Col>
-                        <AlertMessages closeTheErrorMessage={closeTheErrorMessage} HasErrorMessage={error_alert}/>
+                        <AlertMessages closeTheErrorMessage={closeTheErrorMessage} HasErrorMessage={error_alert} closeTheSuccessMessage={closeTheSuccessMessage} HasTheSuccessMessage={success_alert}/>
                         <Header/>
                     </Col>
                 </Row>
                 <Row>
                     <Col>
-                        <AddMovieFrom putdatafunc={putDataToDB} titleChange={titleChange} sub_titleChange={sub_titleChange} descriptionChange={description_Change} img_pathChange={img_pathChange} first_episodeChange={first_episodeChange} />
+                        <AddMovieFrom
+                            putdatafunc={putDataToDB}
+                            titleChange={titleChange}
+                            sub_titleChange={sub_titleChange}
+                            descriptionChange={descriptionChange}
+                            img_pathChange={img_pathChange}
+                            first_episodeChange={first_episodeChange}
+                            state={state}
+                        />
                     </Col>
                 </Row>
                 <Row>

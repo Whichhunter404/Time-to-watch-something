@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import Mongodb from "./Mongodb";
+import MyNavbar from './components/navbar/Navbar';
 import axios from "axios";
 import Home from './Pages/Home';
+import Admin from './Pages/Admin';
 import {
     BrowserRouter as Router,
     Switch,
@@ -26,7 +27,8 @@ class App extends Component{
         idToDelete: null,
         idToUpdate: null,
         objectToUpdate: null,
-        error_alert: false
+        error_alert: false,
+        success_alert : false
     };
     Server_Url = 'http://localhost:3001';
 
@@ -52,6 +54,9 @@ class App extends Component{
     closeTheErrorMessage = () =>{
         this.setState({error_alert:false});
     };
+    closeTheSuccessMessage = () =>{
+        this.setState({success_alert:false});
+    };
     getDataFromDb = () => {
         fetch(this.Server_Url+'/api/getData')
             .then((data) => data.json())
@@ -72,10 +77,19 @@ class App extends Component{
                 description: this.state.description,
                 first_episode_url: this.state.first_episode_url
             });
+            this.resetInputStates();
+            this.setState({success_alert: true})
         }
         else{
             this.setState({error_alert: true});
         }
+    };
+    resetInputStates = () =>{
+        this.setState({title: ''});
+        this.setState({sub_title: ''});
+        this.setState({img_path: ''});
+        this.setState({description: ''});
+        this.setState({first_episode_url: ''});
     };
     deleteFromDB = (idTodelete) => {
         parseInt(idTodelete);
@@ -119,29 +133,38 @@ class App extends Component{
       this.setState({img_path: event.target.value});
     };
     first_episode_Change = (event) =>{
-      this.setState({first_episode: event.target.value});
+      this.setState({first_episode_url: event.target.value});
     };
     render(){
         const data = this.state.data;
+        const state = this.state;
         const error_alert = this.state.error_alert;
+        const success_alert = this.state.success_alart;
         return (
             <Router>
+                <MyNavbar></MyNavbar>
                 <div>
-                    <ul>
-                        <li>
-                            <Link to="/">Home</Link>
-                        </li>
-                        <li>
-                            <Link to="/about">About</Link>
-                        </li>
-                        <li>
-                            <Link to="/topics">Topics</Link>
-                        </li>
-                    </ul>
 
                     <Switch>
                         <Route path="/" exact>
-                            <Home closeTheErrorMessage={this.closeTheErrorMessage} HasErrorMessage={error_alert} putDataToDB={this.putDataToDB} titleChange={this.titleChange} sub_titleChange={this.sub_titleChange} descriptionChange={this.description_Change} img_pathChange={this.img_path_Change} first_episodeChange={this.first_episode_Change} data={data} deleteFromDB={this.deleteFromDB}/>
+                            <Home
+                                closeTheErrorMessage={this.closeTheErrorMessage}
+                                error_alert={error_alert}
+                                closeTheSuccessMessage={this.closeTheSuccessMessage}
+                                success_alert={success_alert}
+                                putDataToDB={this.putDataToDB}
+                                titleChange={this.titleChange}
+                                sub_titleChange={this.sub_titleChange}
+                                descriptionChange={this.description_Change}
+                                img_pathChange={this.img_path_Change}
+                                first_episodeChange={this.first_episode_Change}
+                                data={data}
+                                deleteFromDB={this.deleteFromDB}
+                                state={state}
+                            />
+                        </Route>
+                        <Route path="/admin" exact>
+                            <Admin></Admin>
                         </Route>
                         <Route path="/">
                             <h1>Anyát akarom</h1>

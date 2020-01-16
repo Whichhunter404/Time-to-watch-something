@@ -1,7 +1,7 @@
 import React from 'react';
 import {Alert} from "react-bootstrap";
 
-const AlertMessages = ({closeTheErrorMessage,HasErrorMessage}) =>{
+const AlertMessages = ({closeTheErrorMessage,HasErrorMessage,closeTheSuccessMessage,HasTheSuccessMessage}) =>{
     if(HasErrorMessage) {
         return (
             <Alert variant="danger" onClose={closeTheErrorMessage} dismissible>
@@ -10,6 +10,16 @@ const AlertMessages = ({closeTheErrorMessage,HasErrorMessage}) =>{
                     Kérlek egészítsd ki!
                 </p>
             </Alert>
+        )
+    }
+    else if(HasTheSuccessMessage){
+        return(
+        <Alert variant="success" onClose={closeTheSuccessMessage} dismissible>
+            <Alert.Heading>Sikeres felvétel!</Alert.Heading>
+            <p>
+                Adat feltöltve az adatbázisba
+            </p>
+        </Alert>
         )
     }
     else{

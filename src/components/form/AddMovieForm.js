@@ -1,7 +1,7 @@
 import React from 'react';
 import {Button, FormControl, InputGroup} from "react-bootstrap";
 
-const AddMovieFrom = ({putdatafunc,titleChange,sub_titleChange,descriptionChange,img_pathChange,first_episodeChange}) =>{
+const AddMovieFrom = ({putdatafunc,titleChange,sub_titleChange,descriptionChange,img_pathChange,first_episodeChange,state}) =>{
         return (
             <div>
                 <InputGroup className="mb-3">
@@ -12,6 +12,7 @@ const AddMovieFrom = ({putdatafunc,titleChange,sub_titleChange,descriptionChange
                         aria-label="Default"
                         aria-describedby="inputGroup-sizing-default"
                         onChange={titleChange}
+                        value={state.title}
                         placeholder="Alice Csodaországban..."
                     />
                 </InputGroup>
@@ -23,6 +24,7 @@ const AddMovieFrom = ({putdatafunc,titleChange,sub_titleChange,descriptionChange
                         aria-label="Default"
                         aria-describedby="inputGroup-sizing-default-2"
                         onChange={sub_titleChange}
+                        value={state.sub_title}
                         placeholder="Alcím a Jack a bölcs sárkány sose..."
                     />
                 </InputGroup>
@@ -34,6 +36,7 @@ const AddMovieFrom = ({putdatafunc,titleChange,sub_titleChange,descriptionChange
                         as="textarea"
                         aria-label="With textarea"
                         onChange={descriptionChange}
+                        value={state.description}
                         placeholder="A film leírása..."
                     />
                 </InputGroup>
@@ -46,6 +49,7 @@ const AddMovieFrom = ({putdatafunc,titleChange,sub_titleChange,descriptionChange
                         aria-label="Default"
                         aria-describedby="inputGroup-sizing-default-3"
                         onChange={img_pathChange}
+                        value={state.img_path}
                         placeholder="Egy kép url..."
                     />
                 </InputGroup>
@@ -57,6 +61,7 @@ const AddMovieFrom = ({putdatafunc,titleChange,sub_titleChange,descriptionChange
                         aria-label="Default"
                         aria-describedby="inputGroup-sizing-default-4"
                         onChange={first_episodeChange}
+                        value={state.first_episode_url}
                         placeholder="Az első rész url..."
                     />
                 </InputGroup>
