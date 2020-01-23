@@ -1,26 +1,29 @@
 import React from 'react';
-import { Card,ListGroup,ListGroupItem } from 'react-bootstrap';
+import {Button, Card, ListGroup, ListGroupItem} from 'react-bootstrap';
 
 
 const My_Card = ({dat}) =>{
-    const {title,img_path,description,first_episode} = dat;
+    const {title,sub_title,img_path,description,first_episode_url} = dat;
     return(
-        <Card style={{ width: '50rem', margin: "auto", backgroundColor : "#444", color:"white" }}>
+        <Card style={{ width: '95%', margin: "auto",marginBottom: "20px", backgroundColor : "#444", color:"white" }}>
             <Card.Img variant="top" src={img_path} />
             <Card.Body>
                 <Card.Title>{title}</Card.Title>
                 <Card.Text>
-                    {description}
+                    {sub_title}
                 </Card.Text>
             </Card.Body>
             <ListGroup className="list-group-flush">
-                <ListGroupItem>Cras justo odio</ListGroupItem>
-                <ListGroupItem>Dapibus ac facilisis in</ListGroupItem>
-                <ListGroupItem>Vestibulum at eros</ListGroupItem>
+                <ListGroupItem style={{textAlign:"left"}}>{description}</ListGroupItem>
             </ListGroup>
             <Card.Body>
-                <Card.Link href="#">Card Link</Card.Link>
-                <Card.Link href={first_episode}>Another Link</Card.Link>
+                <Card.Link> <a href={first_episode_url} target="_blank"><Button
+                    onClick={() => console.log('Hami!')}
+                    variant="outline-primary"
+                    size="lg"
+                    block>Megnézem</Button>
+                </a>
+                </Card.Link>
             </Card.Body>
         </Card>
     );

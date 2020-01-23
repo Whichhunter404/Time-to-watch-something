@@ -5,6 +5,8 @@ import MyNavbar from './components/navbar/Navbar';
 import axios from "axios";
 import Home from './Pages/Home';
 import Admin from './Pages/Admin';
+import YouLost from './Pages/you_lost.jpg';
+import {Image} from "react-bootstrap";
 import {
     BrowserRouter as Router,
     Switch,
@@ -16,6 +18,8 @@ import {
 
 class App extends Component{
     state = {
+        username: '',
+        password: '',
         data: [],
         id: 0,
         title: '',
@@ -28,13 +32,18 @@ class App extends Component{
         idToUpdate: null,
         objectToUpdate: null,
         error_alert: false,
-        success_alert : false
+        success_alert : false,
+        is_Admin: false,
     };
     Server_Url = 'http://localhost:3001';
 
-    // when component mounts, first thing it does is fetch all existing data in our db
-    // then we incorporate a polling logic so that we can easily see if our db has
-    // changed and implement those changes into our UI
+    myChangeHandler = (event) => {
+        let nam = event.target.name;
+        let val = event.target.value;
+        this.setState({[nam]: val});
+        console.log(this.state.username);
+    };
+
     componentDidMount() {
         this.getDataFromDb();
         if (!this.state.intervalIsSet) {
@@ -51,6 +60,17 @@ class App extends Component{
             this.setState({ intervalIsSet: null });
         }
     }
+    loginAsAdmin = () =>{
+        if(this.state.username==="admin"&&this.state.password==="admin") {
+            this.setState({is_Admin: true});
+        }
+        else{
+            console.log(this.state.username);
+        }
+    };
+    loginOffAsAdmin = () =>{
+        this.setState({is_Admin:false});
+    };
     closeTheErrorMessage = () =>{
         this.setState({error_alert:false});
     };
@@ -74,7 +94,7 @@ class App extends Component{
                 title: this.state.title,
                 sub_title: this.state.sub_title,
                 img_path: this.state.description,
-                description: this.state.description,
+                description: this.state.img_path,
                 first_episode_url: this.state.first_episode_url
             });
             this.resetInputStates();
@@ -142,12 +162,21 @@ class App extends Component{
         const success_alert = this.state.success_alart;
         return (
             <Router>
-                <MyNavbar></MyNavbar>
+                <MyNavbar is_Admin={this.state.is_Admin} logOffADMIN={this.loginOffAsAdmin}/>
                 <div>
 
                     <Switch>
                         <Route path="/" exact>
                             <Home
+                                data={data}
+                                deleteFromDB={this.deleteFromDB}
+                            />
+                        </Route>
+                        <Route path="/admin" exact>
+                            <Admin
+                                myChangeHandler={this.myChangeHandler}
+                                is_Admin={this.state.is_Admin}
+                                loginAsAdmin={this.loginAsAdmin}
                                 closeTheErrorMessage={this.closeTheErrorMessage}
                                 error_alert={error_alert}
                                 closeTheSuccessMessage={this.closeTheSuccessMessage}
@@ -163,11 +192,8 @@ class App extends Component{
                                 state={state}
                             />
                         </Route>
-                        <Route path="/admin" exact>
-                            <Admin></Admin>
-                        </Route>
                         <Route path="/">
-                            <h1>Anyát akarom</h1>
+                            <Image src={YouLost} fluid />
                         </Route>
                     </Switch>
                 </div>
