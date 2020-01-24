@@ -35,7 +35,7 @@ class App extends Component{
         success_alert : false,
         is_Admin: false,
     };
-    Server_Url = 'https://time-to-watch-something-api.herokuapp.com/';
+    Server_Url = 'https://time-to-watch-something-api.herokuapp.com';
 
     myChangeHandler = (event) => {
         let nam = event.target.name;
@@ -61,7 +61,7 @@ class App extends Component{
         }
     }
     loginAsAdmin = () =>{
-        if(this.state.username==="admin"&&this.state.password==="admin") {
+        if(this.state.username==="csinaljunkmost"&&this.state.password==="barmit") {
             this.setState({is_Admin: true});
         }
         else{
