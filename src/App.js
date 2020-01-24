@@ -35,7 +35,7 @@ class App extends Component{
         success_alert : false,
         is_Admin: false,
     };
-    Server_Url = 'http://localhost:3001';
+    Server_Url = 'https://time-to-watch-something-api.herokuapp.com/';
 
     myChangeHandler = (event) => {
         let nam = event.target.name;
@@ -93,8 +93,8 @@ class App extends Component{
                 id: idToBeAdded,
                 title: this.state.title,
                 sub_title: this.state.sub_title,
-                img_path: this.state.description,
-                description: this.state.img_path,
+                img_path: this.state.img_path,
+                description: this.state.description,
                 first_episode_url: this.state.first_episode_url
             });
             this.resetInputStates();
