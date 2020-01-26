@@ -8,7 +8,7 @@ You have to change the server_url in App.js to the node server url which can be 
 
 Start this node server(follow the steps there)
 
-Env file
+Put the Node server url(SERVER_URL), a random admin username(ADMIN_USERNAME) and a random admin password(ADMIN_PASSWORD)
 
 Then you have to do an "npm install" and "npm start" to get the packages and start the program
 

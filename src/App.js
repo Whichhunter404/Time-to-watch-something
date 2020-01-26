@@ -58,7 +58,7 @@ class App extends Component{
         }
     }
     loginAsAdmin = () =>{
-        if(process.env.ADMIN_USERNAME==="csinaljunkmost"&&process.env.ADMIN_PASSWORD==="barmit") {
+        if(process.env.ADMIN_USERNAME===this.state.username&&process.env.ADMIN_PASSWORD===this.state.password) {
             this.setState({is_Admin: true});
         }
         else{
