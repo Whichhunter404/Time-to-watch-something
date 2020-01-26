@@ -34,6 +34,7 @@ class App extends Component{
         error_alert: false,
         success_alert : false,
         is_Admin: false,
+        connection_error: false,
     };
     Server_Url = 'https://time-to-watch-something-api.herokuapp.com';
 
@@ -43,7 +44,7 @@ class App extends Component{
         this.setState({[nam]: val});
     };
 
-    componentDidMount() {
+    componentDidMount() {//fetch data every 1s
         this.getDataFromDb();
         if (!this.state.intervalIsSet) {
             let interval = setInterval(this.getDataFromDb, 1000);
@@ -77,7 +78,8 @@ class App extends Component{
     getDataFromDb = () => {
         fetch(this.Server_Url+'/api/getData')
             .then((data) => data.json())
-            .then((res) => this.setState({ data: res.data }));
+            .then((res) => this.setState({ data: res.data }))
+            .catch((error)=>this.setState({connection_error : "true"}));
     };
     putDataToDB = () => {
         let currentIds = this.state.data.map((data) => data.id);
@@ -161,7 +163,6 @@ class App extends Component{
             <Router>
                 <MyNavbar is_Admin={this.state.is_Admin} logOffADMIN={this.loginOffAsAdmin}/>
                 <div>
-
                     <Switch>
                         <Route path="/" exact>
                             <Home
