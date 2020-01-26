@@ -36,7 +36,6 @@ class App extends Component{
         is_Admin: false,
         connection_error: false,
     };
-    Server_Url = 'https://time-to-watch-something-api.herokuapp.com';
 
     myChangeHandler = (event) => {//used on admin page to login
         let nam = event.target.name;
@@ -59,7 +58,7 @@ class App extends Component{
         }
     }
     loginAsAdmin = () =>{
-        if(this.state.username==="csinaljunkmost"&&this.state.password==="barmit") {
+        if(process.env.ADMIN_USERNAME==="csinaljunkmost"&&process.env.ADMIN_PASSWORD==="barmit") {
             this.setState({is_Admin: true});
         }
         else{
@@ -76,7 +75,7 @@ class App extends Component{
         this.setState({success_alert:false});
     };
     getDataFromDb = () => {
-        fetch(this.Server_Url+'/api/getData')
+        fetch(process.env.SERVER_URL+'/api/getData')
             .then((data) => data.json())
             .then((res) => this.setState({ data: res.data }))
             .catch((error)=>this.setState({connection_error : "true"}));
@@ -88,7 +87,7 @@ class App extends Component{
             ++idToBeAdded;
         }
         if(this.state.title.length>0&&this.state.sub_title.length>0&&this.state.description.length>0&&this.state.img_path.length>0&&this.state.first_episode_url.length>0) {
-            axios.post(this.Server_Url+'/api/putData', {
+            axios.post(process.env.SERVER_URL+'/api/putData', {
                 id: idToBeAdded,
                 title: this.state.title,
                 sub_title: this.state.sub_title,
@@ -119,13 +118,13 @@ class App extends Component{
             }
         });
 
-        axios.delete(this.Server_Url+'/api/deleteData', {
+        axios.delete(process.env.SERVER_URL+'/api/deleteData', {
             data: {
                 id: objIdToDelete,
             },
         });
     };
-    updateDB = (idToUpdate, updateToApply) => {
+    updateDB = (idToUpdate, updateToApply) => {//THIS method not working with this new data type you can only update the data by go to the database or delete and recreate
         let objIdToUpdate = null;
         parseInt(idToUpdate);
         this.state.data.forEach((dat) => {
@@ -134,7 +133,7 @@ class App extends Component{
             }
         });
 
-        axios.post(this.Server_Url+'/api/updateData', {
+        axios.post(process.env.SERVER_URL+'/api/updateData', {
             id: objIdToUpdate,
             update: { message: updateToApply },
         });
