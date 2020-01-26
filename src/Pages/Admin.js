@@ -49,7 +49,7 @@ const Admin = ({myChangeHandler,is_Admin,
                             : data.map((dat) => (
                                 <div>
                                     <My_Card dat={dat} />
-                                    <Button variant="danger" onClick={() => deleteFromDB(dat.id)}>Törlés</Button>
+                                    <Button variant="danger" onClick={() => deleteFromDB(dat.id)} style={{width: "100%"}}>Törlés</Button>
                                 </div>
                             ))}
                     </Col>
