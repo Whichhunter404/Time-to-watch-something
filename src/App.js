@@ -120,7 +120,7 @@ class App extends Component{
             }
         });
 
-        axios.delete('http://localhost:3001/api/deleteData', {
+        axios.delete(this.Server_Url+'/api/deleteData', {
             data: {
                 id: objIdToDelete,
             },
@@ -135,7 +135,7 @@ class App extends Component{
             }
         });
 
-        axios.post('http://localhost:3001/api/updateData', {
+        axios.post(this.Server_Url+'/api/updateData', {
             id: objIdToUpdate,
             update: { message: updateToApply },
         });
