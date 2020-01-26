@@ -7,7 +7,7 @@ const AlertMessages = ({closeTheErrorMessage,HasErrorMessage,closeTheSuccessMess
             <Alert variant="danger" onClose={closeTheErrorMessage} dismissible>
                 <Alert.Heading>Hiányos fevitel</Alert.Heading>
                 <p>
-                    Kérlek egészítsd ki!
+                    Kérlek egészítsd ki a beviteli adatokat!
                 </p>
             </Alert>
         )
@@ -17,7 +17,7 @@ const AlertMessages = ({closeTheErrorMessage,HasErrorMessage,closeTheSuccessMess
         <Alert variant="success" onClose={closeTheSuccessMessage} dismissible>
             <Alert.Heading>Sikeres felvétel!</Alert.Heading>
             <p>
-                Adat feltöltve az adatbázisba
+               Feltöltve az adatbázisba!
             </p>
         </Alert>
         )

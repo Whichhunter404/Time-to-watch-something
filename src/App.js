@@ -37,11 +37,10 @@ class App extends Component{
     };
     Server_Url = 'https://time-to-watch-something-api.herokuapp.com';
 
-    myChangeHandler = (event) => {
+    myChangeHandler = (event) => {//used on admin page to login
         let nam = event.target.name;
         let val = event.target.value;
         this.setState({[nam]: val});
-        console.log(this.state.username);
     };
 
     componentDidMount() {
@@ -52,8 +51,6 @@ class App extends Component{
         }
     }
 
-    // never let a process live forever
-    // always kill a process everytime we are done using it
     componentWillUnmount() {
         if (this.state.intervalIsSet) {
             clearInterval(this.state.intervalIsSet);
@@ -159,7 +156,7 @@ class App extends Component{
         const data = this.state.data;
         const state = this.state;
         const error_alert = this.state.error_alert;
-        const success_alert = this.state.success_alart;
+        const success_alert = this.state.success_alert;
         return (
             <Router>
                 <MyNavbar is_Admin={this.state.is_Admin} logOffADMIN={this.loginOffAsAdmin}/>
@@ -169,7 +166,6 @@ class App extends Component{
                         <Route path="/" exact>
                             <Home
                                 data={data}
-                                deleteFromDB={this.deleteFromDB}
                             />
                         </Route>
                         <Route path="/admin" exact>
