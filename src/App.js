@@ -36,7 +36,6 @@ class App extends Component{
         is_Admin: false,
         connection_error: false,
     };
-
     myChangeHandler = (event) => {//used on admin page to login
         let nam = event.target.name;
         let val = event.target.value;
@@ -58,7 +57,7 @@ class App extends Component{
         }
     }
     loginAsAdmin = () =>{
-        if(process.env.ADMIN_USERNAME===this.state.username&&process.env.ADMIN_PASSWORD===this.state.password) {
+        if(process.env.REACT_APP_ADMIN_USERNAME===this.state.username&&process.env.REACT_APP_ADMIN_PASSWORD===this.state.password) {
             this.setState({is_Admin: true});
             this.setState({success_alert: true})
         }
@@ -76,14 +75,10 @@ class App extends Component{
         this.setState({success_alert:false});
     };
     getDataFromDb = () => {
-        fetch(process.env.SERVER_URL +'/api/getData')
+        fetch(process.env.REACT_APP_SERVER_URL +'/api/getData')
             .then((data) => data.json())
             .then((res) => this.setState({ data: res.data }))
             .catch((error)=>this.setState({connection_error : "true"}));
-        console.log(process.env.SERVER_URL);
-        console.log(process.env.ADMIN_USERNAME);
-        console.log(process.env.ADMIN_PASSWORD);
-
     };
     putDataToDB = () => {
         let currentIds = this.state.data.map((data) => data.id);
@@ -92,7 +87,7 @@ class App extends Component{
             ++idToBeAdded;
         }
         if(this.state.title.length>0&&this.state.sub_title.length>0&&this.state.description.length>0&&this.state.img_path.length>0&&this.state.first_episode_url.length>0) {
-            axios.post(process.env.SERVER_URL+'/api/putData', {
+            axios.post(process.env.REACT_APP_SERVER_URL+'/api/putData', {
                 id: idToBeAdded,
                 title: this.state.title,
                 sub_title: this.state.sub_title,
@@ -123,7 +118,7 @@ class App extends Component{
             }
         });
 
-        axios.delete(process.env.SERVER_URL+'/api/deleteData', {
+        axios.delete(process.env.REACT_APP_SERVER_URL+'/api/deleteData', {
             data: {
                 id: objIdToDelete,
             },
@@ -138,7 +133,7 @@ class App extends Component{
             }
         });
 
-        axios.post(process.env.SERVER_URL+'/api/updateData', {
+        axios.post(process.env.REACT_APP_SERVER_URL+'/api/updateData', {
             id: objIdToUpdate,
             update: { message: updateToApply },
         });

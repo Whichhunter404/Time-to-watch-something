@@ -15,9 +15,9 @@ const AlertMessages = ({closeTheErrorMessage,HasErrorMessage,closeTheSuccessMess
     else if(HasTheSuccessMessage){
         return(
         <Alert variant="success" onClose={closeTheSuccessMessage} dismissible>
-            <Alert.Heading>Sikeres felvétel!</Alert.Heading>
+            <Alert.Heading>Sikeres esemény!</Alert.Heading>
             <p>
-               Feltöltve az adatbázisba!
+               Az ön által indított esemény sikeresen lezajlott.
             </p>
         </Alert>
         )

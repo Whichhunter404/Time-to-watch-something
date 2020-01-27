@@ -1,6 +1,7 @@
 import React from 'react';
 import {Container, Row, Col, Button, Jumbotron} from 'react-bootstrap';
 import My_Card from '../components/card/Card.js';
+import Loading from '../components/images/loading.gif';
 
 const Home = ({data}) =>{
     return (
@@ -20,7 +21,7 @@ const Home = ({data}) =>{
                 <Row>
                     <Col>
                         {data.length <= 0
-                            ? 'Semmilyen cím sincs még bent!'
+                            ? <img src={Loading} alt="Loading image"/>
                             : data.map((dat) => (
                                 <div>
                                     <My_Card dat={dat} />
