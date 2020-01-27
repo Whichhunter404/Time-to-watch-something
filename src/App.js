@@ -60,9 +60,10 @@ class App extends Component{
     loginAsAdmin = () =>{
         if(process.env.ADMIN_USERNAME===this.state.username&&process.env.ADMIN_PASSWORD===this.state.password) {
             this.setState({is_Admin: true});
+            this.setState({success_alert: true})
         }
         else{
-            console.log(this.state.username);
+            this.setState({error_alert: true});
         }
     };
     loginOffAsAdmin = () =>{
@@ -75,10 +76,14 @@ class App extends Component{
         this.setState({success_alert:false});
     };
     getDataFromDb = () => {
-        fetch(process.env.SERVER_URL+'/api/getData')
+        fetch(process.env.SERVER_URL +'/api/getData')
             .then((data) => data.json())
             .then((res) => this.setState({ data: res.data }))
             .catch((error)=>this.setState({connection_error : "true"}));
+        console.log(process.env.SERVER_URL);
+        console.log(process.env.ADMIN_USERNAME);
+        console.log(process.env.ADMIN_PASSWORD);
+
     };
     putDataToDB = () => {
         let currentIds = this.state.data.map((data) => data.id);

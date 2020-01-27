@@ -74,7 +74,7 @@ const Admin = ({myChangeHandler,is_Admin,
                 </InputGroup>
                 <InputGroup className="mb-3">
                     <InputGroup.Prepend>
-                        <InputGroup.Text id="inputGroup-sizing-default-4">Jelszó</InputGroup.Text>
+                        <InputGroup.Text type="password" id="inputGroup-sizing-default-4">Jelszó</InputGroup.Text>
                     </InputGroup.Prepend>
                     <FormControl
                         aria-label="Default"
